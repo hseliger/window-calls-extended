@@ -64,7 +64,7 @@ export default class WCExtension {
     List() {
         let win = global.get_window_actors()
             .map(a => a.meta_window)
-            .map(w => ({ class: w.get_wm_class(), pid: w.get_pid(), id: w.get_id(), maximized: w.get_maximized(), focus: w.has_focus(), title: w.get_title() }));
+            .map(w => ({ class: w.get_wm_class(), pid: w.get_pid(), id: w.get_id(), maximized: w.is_maximized(), focus: w.has_focus(), title: w.get_title() }));
         return JSON.stringify(win);
     }
     FocusTitle() {
