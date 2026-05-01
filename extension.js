@@ -17,7 +17,7 @@
  */
 
 // Created: 2022-04-05T09:02:24+02:00 by Hendrik G. Seliger (github@hseliger.eu)
-// Last changes: 2023-11-13T22:28:33+01:00 by Hendrik G. Seliger (github@hseliger.eu)
+// Last changes: 2026-05-01T19:21:23+02:00 by Hendrik G. Seliger (github@hseliger.eu)
 
 // Based on the initial version by ickyicky (https://github.com/ickyicky),
 // extended by a few methods to provide the focused window's title, window class, and pid.
@@ -59,12 +59,13 @@ export default class WCExtension {
     disable() {
         this._dbus.flush();
         this._dbus.unexport();
+        this._dbus = null;   // release owned reference
         delete this._dbus;
     }
     List() {
         let win = global.get_window_actors()
             .map(a => a.meta_window)
-            .map(w => ({ class: w.get_wm_class(), pid: w.get_pid(), id: w.get_id(), maximized: w.get_maximized(), focus: w.has_focus(), title: w.get_title() }));
+            .map(w => ({ class: w.get_wm_class(), pid: w.get_pid(), id: w.get_id(), /*maximized: w.get_maximized(),*/ focus: w.has_focus(), title: w.get_title() }));
         return JSON.stringify(win);
     }
     FocusTitle() {
