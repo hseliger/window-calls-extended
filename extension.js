@@ -47,6 +47,10 @@ const MR_DBUS_IFACE = `
         <method name="FocusClass">
             <arg type="s" direction="out" />
         </method>
+        <method name="Activate">
+            <arg type="s" direction="in" name="window_id"/>
+            <arg type="b" direction="out"/>
+        </method>
     </interface>
 </node>`;
 
@@ -111,5 +115,17 @@ export default class WCExtension {
                 return theClass[1];
         }
         return "";
+    }
+    Activate(windowId) {
+        let targetId = parseInt(windowId);
+        let win = global.get_window_actors()
+            .map(a => a.meta_window)
+            .find(w => w.get_id() === targetId);
+        
+        if (win) {
+            win.activate(global.get_current_time());
+            return true;
+        }
+        return false;
     }
 }

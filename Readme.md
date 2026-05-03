@@ -26,11 +26,18 @@ To get the title of the window with focus:
 gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/WindowsExt --method org.gnome.Shell.Extensions.WindowsExt.FocusTitle
 ```
 
+To activate/focus a window by its ID:
+```sh
+gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/WindowsExt --method org.gnome.Shell.Extensions.WindowsExt.Activate "WINDOW_ID"
+```
+
 Available methods are:
 * org.gnome.Shell.Extensions.WindowsExt.List
 * org.gnome.Shell.Extensions.WindowsExt.FocusTitle
 * org.gnome.Shell.Extensions.WindowsExt.FocusPID
+* org.gnome.Shell.Extensions.WindowsExt.FocusID
 * org.gnome.Shell.Extensions.WindowsExt.FocusClass
+* org.gnome.Shell.Extensions.WindowsExt.Activate
 
 ## Using from C++
 If using from C++, it requires the dbus-1 library. Parameters for the call to `dbus_message_new_method_call` would be
